@@ -1,331 +1,170 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="logo.png">
-  <title>TikTok Coins - US Version</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TikTok Coins – Payment</title>
   <style>
-    :root {
-      --bg: #ffffff;
-      --card: #f6f6f7;
-      --accent: #ff0050;
-      --muted: #6b6b6b;
-      --radius: 12px;
-      --success: #00c853;
-    }
     body {
+      background-color: #ffffff;
+      font-family: "Inter", Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
       margin: 0;
-      font-family: Inter, system-ui, -apple-system, "Helvetica Neue", Arial;
-      background: var(--bg);
-      color: #000;
-    }
-    .wrap {
-      max-width: 420px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    .header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-    .header img {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-    }
-    .header .brand {
-      font-weight: 700;
-      font-size: 20px;
-    }
-    h1 {
-      font-size: 26px;
-      margin: 10px 0 14px;
-      font-weight: 800;
-    }
-    .search {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 14px;
-      align-items: center;
-    }
-    .search input {
-      flex: 1;
-      border: 0;
-      background: #fafafa;
-      border-radius: var(--radius);
-      padding: 12px 14px;
-      font-size: 16px;
-    }
-    .search button {
-      border: 0;
-      background: var(--accent);
-      color: white;
-      padding: 12px 16px;
-      border-radius: var(--radius);
-      font-weight: 600;
-      cursor: pointer;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-    .card {
-      background: var(--card);
-      border-radius: var(--radius);
-      text-align: center;
-      padding: 16px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      cursor: pointer;
-      border: 2px solid transparent;
-      transition: 0.2s;
-    }
-    .card.active {
-      border-color: var(--accent);
-      transform: scale(1.05);
-    }
-    .card img {
-      width: 28px;
-      height: 28px;
-      margin-bottom: 8px;
-    }
-    .custom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border: 1px solid #ddd;
-      padding: 10px 14px;
-      border-radius: var(--radius);
-      margin-bottom: 20px;
-      gap: 6px;
-    }
-    .custom input {
-      flex: 1;
-      border: 0;
-      background: transparent;
-      font-size: 16px;
-    }
-    .custom button {
-      border: 0;
-      background: var(--accent);
-      color: white;
-      padding: 8px 16px;
-      border-radius: var(--radius);
-      font-weight: 600;
-      cursor: pointer;
-    }
-    .pay {
-      background: #fff;
-      border: 1px solid #eee;
-      border-radius: var(--radius);
-      padding: 14px;
-      margin-bottom: 20px;
-    }
-    .pay h3 {
-      margin: 0 0 10px;
-      font-size: 16px;
-      font-weight: 700;
-    }
-    .pay-methods {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .pay-methods img {
-      width: 52px;
-      height: 32px;
-      object-fit: contain;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      background: #fff;
-      padding: 4px;
-      cursor: pointer;
-      transition: transform 0.2s ease, border 0.2s ease;
-    }
-    .pay-methods img.selected {
-      border-color: var(--accent);
-      transform: scale(1.08);
-    }
-    .invite {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border: 1px solid #eee;
-      background: #fff9fb;
-      border-radius: var(--radius);
-      padding: 14px 16px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    }
-    .invite .text {
-      font-weight: 600;
-    }
-    .invite small {
-      color: var(--muted);
+      color: #333;
     }
 
-    /* --- 模擬付款彈窗 --- */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+
+    .methods {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
       justify-content: center;
-      align-items: center;
-      z-index: 1000;
     }
-    .modal-content {
-      background: #fff;
-      padding: 24px;
-      border-radius: var(--radius);
-      text-align: center;
-      width: 80%;
-      max-width: 320px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      animation: fadeIn 0.3s ease;
+
+    .method {
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    .method:hover {
+      border-color: #ff0050;
+      color: #ff0050;
     }
+
+    .selected {
+      border-color: #ff0050;
+      background-color: #ffe4ec;
+      color: #ff0050;
+    }
+
+    .button {
+      background-color: #ff0050;
+      color: #fff;
+      border: none;
+      padding: 14px 30px;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .button:hover {
+      background-color: #e60046;
+    }
+
     .loader {
       border: 4px solid #f3f3f3;
-      border-top: 4px solid var(--accent);
+      border-top: 4px solid #ff0050;
       border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      margin: 0 auto 14px;
+      width: 60px;
+      height: 60px;
       animation: spin 1s linear infinite;
+      margin-bottom: 16px;
     }
+
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
-    .success {
-      color: var(--success);
-      font-size: 36px;
-      margin-bottom: 10px;
+
+    .checkmark {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: #4BB543;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: pop 0.4s ease-out;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .checkmark::after {
+      content: "";
+      position: absolute;
+      width: 25px;
+      height: 50px;
+      border-right: 6px solid #fff;
+      border-bottom: 6px solid #fff;
+      transform: rotate(45deg);
+      top: 14px;
+    }
+
+    .text {
+      font-size: 20px;
+      font-weight: 600;
+      margin-top: 14px;
+    }
+
+    .hidden {
+      display: none;
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="header">
-      <img src="logo.png" alt="TikTok Logo">
-      <div class="brand">TikTok</div>
-    </div>
+  <h1>Choose Payment Method</h1>
 
-    <h1>Purchase TikTok Coins</h1>
-    <div class="search">
-      <input type="text" placeholder="Enter TikTok ID">
-      <button>Search</button>
-    </div>
-
-    <div class="grid" id="coinGrid">
-      <div class="card" data-usd="0.42" data-coins="30"><img src="coin.png" alt=""> <b>30</b><br>US$0.42</div>
-      <div class="card" data-usd="4.95" data-coins="350"><img src="coin.png" alt=""> <b>350</b><br>US$4.95</div>
-      <div class="card" data-usd="9.90" data-coins="700"><img src="coin.png" alt=""> <b>700</b><br>US$9.90</div>
-      <div class="card" data-usd="99.00" data-coins="7000"><img src="coin.png" alt=""> <b>7,000</b><br>US$99.00</div>
-      <div class="card" data-usd="247.50" data-coins="17500"><img src="coin.png" alt=""> <b>17,500</b><br>US$247.50</div>
-      <div class="card" data-usd="0" data-coins="0"><b>Custom</b></div>
-    </div>
-
-    <div class="custom">
-      <input type="text" id="amountInput" placeholder="Enter amount (USD)">
-      <span id="coinDisplay">0 Coins</span>
-      <button id="payBtn">Pay</button>
-    </div>
-
-    <div class="pay">
-      <h3>Select Payment Method</h3>
-      <div class="pay-methods" id="paymentMethods">
-        <img src="pay_visa.png" alt="Visa" data-method="Visa">
-        <img src="pay_mastercard.png" alt="Mastercard" data-method="Mastercard">
-        <img src="pay_paypal.png" alt="PayPal" data-method="PayPal">
-        <img src="pay_applepay.png" alt="Apple Pay" data-method="Apple Pay">
-        <img src="pay_amex.png" alt="Amex" data-method="Amex">
-        <img src="pay_venmo.png" alt="Venmo" data-method="Venmo">
-      </div>
-    </div>
-
-    <div class="invite">
-      <div>
-        <div class="text">🎉 Invite and get rewards</div>
-        <small>Look at this new function!</small>
-      </div>
-      <div>›</div>
-    </div>
+  <div class="methods">
+    <div class="method" onclick="selectMethod(this)">Apple Pay</div>
+    <div class="method" onclick="selectMethod(this)">Visa</div>
+    <div class="method" onclick="selectMethod(this)">PayPal</div>
+    <div class="method" onclick="selectMethod(this)">MasterCard</div>
   </div>
 
-  <!-- 模擬付款彈窗 -->
-  <div class="modal" id="paymentModal">
-    <div class="modal-content" id="modalContent">
-      <div class="loader"></div>
-      <h3>Processing Payment...</h3>
-      <p>Please wait a moment</p>
-    </div>
+  <button class="button" onclick="startPayment()">Pay</button>
+
+  <div id="processing" class="hidden">
+    <div class="loader"></div>
+    <div class="text">Processing payment...</div>
+  </div>
+
+  <div id="completed" class="hidden">
+    <div class="checkmark"></div>
+    <div class="text">Payment completed</div>
   </div>
 
   <script>
-    const modal = document.getElementById("paymentModal");
-    const modalContent = document.getElementById("modalContent");
-    const payBtn = document.getElementById("payBtn");
-    const cards = document.querySelectorAll(".card");
-    const amountInput = document.getElementById("amountInput");
-    const coinDisplay = document.getElementById("coinDisplay");
-    const methods = document.querySelectorAll("#paymentMethods img");
-
     let selectedMethod = null;
-    const ratio = 707; // 約等於 TikTok 匯率
 
-    cards.forEach(card => {
-      card.addEventListener("click", () => {
-        cards.forEach(c => c.classList.remove("active"));
-        card.classList.add("active");
-        const usd = card.dataset.usd;
-        const coins = card.dataset.coins;
-        if (usd > 0) {
-          amountInput.value = usd;
-          coinDisplay.textContent = coins + " Coins";
-        } else {
-          amountInput.value = "";
-          coinDisplay.textContent = "0 Coins";
-        }
-      });
-    });
+    function selectMethod(element) {
+      document.querySelectorAll('.method').forEach(btn => btn.classList.remove('selected'));
+      element.classList.add('selected');
+      selectedMethod = element.textContent;
+    }
 
-    amountInput.addEventListener("input", () => {
-      const usd = parseFloat(amountInput.value) || 0;
-      const coins = Math.round(usd * ratio);
-      coinDisplay.textContent = coins + " Coins";
-    });
-
-    methods.forEach(m => {
-      m.addEventListener("click", () => {
-        methods.forEach(x => x.classList.remove("selected"));
-        m.classList.add("selected");
-        selectedMethod = m.dataset.method;
-      });
-    });
-
-    payBtn.addEventListener("click", () => {
+    function startPayment() {
       if (!selectedMethod) {
         alert("Please select a payment method first.");
         return;
       }
-      modal.style.display = "flex";
-      modalContent.innerHTML = '<div class="loader"></div><h3>Processing Payment...</h3><p>Please wait a moment</p>';
-      setTimeout(() => {
-        modalContent.innerHTML = '<div class="success">✅</div><h3>Payment Successful!</h3><p>Coins Added to Your Account</p><button onclick="closeModal()">OK</button>';
-      }, 2500);
-    });
 
-    function closeModal() {
-      modal.style.display = "none";
+      document.querySelector('.methods').classList.add('hidden');
+      document.querySelector('.button').classList.add('hidden');
+      document.getElementById('processing').classList.remove('hidden');
+
+      setTimeout(() => {
+        document.getElementById('processing').classList.add('hidden');
+        document.getElementById('completed').classList.remove('hidden');
+      }, 2000);
     }
   </script>
 </body>
