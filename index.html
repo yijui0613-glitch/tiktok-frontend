@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="logo.png">
-  <title>Purchase TikTok Coins</title>
+  <title>TikTok Coins - US Version</title>
   <style>
     :root {
       --bg: #ffffff;
@@ -93,12 +93,49 @@
       border: 1px solid #ddd;
       padding: 10px 14px;
       border-radius: var(--radius);
+      margin-bottom: 20px;
     }
-    footer {
-      text-align: center;
+    .pay {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: var(--radius);
+      padding: 14px;
+      margin-bottom: 20px;
+    }
+    .pay h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .pay-methods {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .pay-methods img {
+      width: 52px;
+      height: 32px;
+      object-fit: contain;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background: #fff;
+      padding: 4px;
+    }
+    .invite {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #eee;
+      background: #fff9fb;
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .invite .text {
+      font-weight: 600;
+    }
+    .invite small {
       color: var(--muted);
-      font-size: 14px;
-      margin-top: 20px;
     }
   </style>
 </head>
@@ -108,6 +145,7 @@
       <img src="logo.png" alt="TikTok Logo">
       <div class="brand">TikTok</div>
     </div>
+
     <h1>Purchase TikTok Coins</h1>
     <div class="search">
       <input type="text" placeholder="Enter TikTok ID">
@@ -129,7 +167,25 @@
       <button>Pay</button>
     </div>
 
-    <footer>Invite and get rewards — Look at this new function!</footer>
+    <div class="pay">
+      <h3>Payment Methods</h3>
+      <div class="pay-methods">
+        <img src="pay_visa.png" alt="Visa">
+        <img src="pay_mastercard.png" alt="Mastercard">
+        <img src="pay_paypal.png" alt="PayPal">
+        <img src="pay_applepay.png" alt="Apple Pay">
+        <img src="pay_amex.png" alt="Amex">
+        <img src="pay_venmo.png" alt="Venmo">
+      </div>
+    </div>
+
+    <div class="invite">
+      <div>
+        <div class="text">🎉 Invite and get rewards</div>
+        <small>Look at this new function!</small>
+      </div>
+      <div>›</div>
+    </div>
   </div>
 </body>
 </html>
