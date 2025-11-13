@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="manifest" href="manifest.json">
+<title>TikTok Coins — PWA Preview</title>
+<style>
+/* (CSS shortened for brevity; full styles included) */
+:root{--bg:#ffffff;--card:#f6f6f7;--muted:#6b6b6b;--accent:#ff5864;--radius:14px;--shadow:0 6px 18px rgba(20,20,20,0.05);--primary:#111;--coin:#ffcc33}
+html,body{height:100%}body{margin:0;font-family:Inter, system-ui, -apple-system, "Helvetica Neue", Arial;background:var(--bg);color:var(--primary);-webkit-font-smoothing:antialiased}
+.wrap{max-width:420px;margin:0 auto;padding:28px 20px 60px;box-sizing:border-box}
+.logo-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.logo-mark{width:40px;height:40px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px}
+h1{font-size:34px;margin:8px 0 18px;font-weight:700;letter-spacing:-0.4px}
+.search{display:flex;gap:10px;margin-bottom:18px;align-items:center}
+.search .input{flex:1;background:#fafafa;border:1px solid #eee;padding:14px 16px;border-radius:12px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow)}
+.search .input .icon{width:28px;height:28px;border-radius:6px;background:#eee;display:flex;align-items:center;justify-content:center;font-weight:700}
+.search input{border:0;background:transparent;outline:none;font-size:16px;color:#666}
+.search .btn{background:#efefef;border-radius:12px;padding:12px 14px;font-weight:600;border:1px solid #e3e3e3;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:14px}
+.card{background:var(--card);padding:18px;border-radius:12px;box-shadow:var(--shadow);text-align:left;display:flex;flex-direction:column;gap:8px;cursor:pointer;border:1px solid transparent}
+.card.selected{border-color:var(--accent);background:#fff6f6}
+.card .top{display:flex;align-items:center;gap:10px}
+.coin-icon{width:34px;height:34px;border-radius:50%;background:linear-gradient(#ffd24d,#ffbf2c);display:flex;align-items:center;justify-content:center;font-weight:700;}
+.card .num{font-size:20px;font-weight:700}
+.card .price{color:var(--muted);font-size:15px}
+.custom-row{display:flex;gap:12px;margin:14px 0 18px;align-items:center}
+.custom-row .inputbox{flex:1;background:var(--card);padding:14px;border-radius:12px;border:1px solid #eee;display:flex;align-items:center;justify-content:space-between}
+.custom-row input{border:0;background:transparent;outline:none;font-size:16px}
+.coins-display{font-weight:700;color:#222}
+.feature{background:#fff;border-radius:12px;padding:14px;margin-bottom:10px;border:1px solid #f0f0f0;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow)}
+.feature .emoji{font-size:26px}
+.feature .title{font-weight:700}
+.feature .sub{color:var(--muted);font-size:13px;margin-top:4px}
+.buy-wrap{margin-top:18px;padding:18px 0;text-align:center}
+.buy-btn{display:inline-block;width:92%;max-width:420px;background:#efefef;color:#111;padding:16px 20px;border-radius:14px;font-weight:700;font-size:20px;box-shadow:var(--shadow);border:1px solid #e6e6e6}
+.pay-icons{display:flex;gap:12px;align-items:center;justify-content:center;margin-top:12px}
+.pay-icons .logo{background:#fff;border-radius:8px;padding:10px 12px;border:1px solid #eee;box-shadow:var(--shadow);font-weight:700;color:#222}
+.modal-back{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(6,6,6,0.28);z-index:50}
+.modal{background:#fff;border-radius:12px;padding:18px;width:86%;max-width:420px;box-shadow:0 20px 50px rgba(0,0,0,0.25);text-align:center}
+.modal h3{margin:6px 0 8px}
+.spinner{width:42px;height:42px;border-radius:50%;border:4px solid #eee;border-top-color:var(--accent);margin:8px auto;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (max-width:420px){.wrap{padding:20px}h1{font-size:30px}}
+</style>
+<div class="wrap">
+  <div class="logo-row">
+    <div class="logo-mark"><img src="icon.png" alt="logo" style="width:22px;height:22px;filter:invert(100%);"></div>
+    <div style="font-weight:700;font-size:20px">TikTok</div>
+  </div>
+  <h1>Purchase TikTok Coins</h1>
+  <div class="search">
+    <div class="input">
+      <div class="icon"><img src="icon.png" style="width:18px;height:18px;filter:invert(100%);"></div>
+      <input id="searchId" placeholder="Enter TikTok ID" />
+    </div>
+    <div class="btn" id="searchBtn">Search</div>
+  </div>
+  <div class="grid" id="packGrid"></div>
+  <div class="custom-row">
+    <div class="inputbox">
+      <input id="customAmount" type="number" min="0.01" step="0.01" placeholder="Enter amount (USD)" />
+      <div class="coins-display" id="customCoins">0 Coins</div>
+    </div>
+    <div class="btn" id="customConfirm">Pay</div>
+  </div>
+  <div class="feature">
+    <div class="emoji">👏</div>
+    <div style="flex:1">
+      <div class="title">Invite and get rewards</div>
+      <div class="sub">Look at this new function!</div>
+    </div>
+    <div style="color:#999">›</div>
+  </div>
+  <div class="feature">
+    <div style="width:52px;height:52px;border-radius:12px;background:linear-gradient(#dfeeff,#d4e7ff);display:flex;align-items:center;justify-content:center">
+      <div style="width:34px;height:34px;border-radius:8px;background:#000;color:#fff;display:flex;align-items:center;justify-content:center">♪</div>
+    </div>
+    <div style="flex:1">
+      <div class="title">Add to main screen for use</div>
+      <div class="sub">for use</div>
+    </div>
+    <div style="color:#999">›</div>
+  </div>
+  <div class="buy-wrap">
+    <div class="buy-btn" id="buyBtn">Buy for US$0</div>
+    <div class="pay-icons" style="margin-top:12px">
+      <div class="logo">VISA</div>
+      <div class="logo">Mastercard</div>
+      <div class="logo">AmEx</div>
+      <div class="logo">PayPal</div>
+    </div>
+  </div>
+</div>
+<div class="modal-back" id="modal"><div class="modal" id="modalInner"><div id="modalContent"></div></div></div>
+<script>
+const rateUSDperCoin = 0.99 / 70;
+const packs = [{coins:30},{coins:350},{coins:700},{coins:7000},{coins:17500},{coins:'custom'}];
+function usdForCoins(n){ return (n * rateUSDperCoin).toFixed(2); }
+const grid = document.getElementById('packGrid');
+packs.forEach(p=>{ const c=document.createElement('div'); c.className='card'; if(p.coins==='custom'){ c.innerHTML=`<div class="top"><div class="coin-icon">+</div><div class="num">Custom</div></div><div class="price">&nbsp;</div>`;} else { c.innerHTML=`<div class="top"><div class="coin-icon">¢</div><div class="num">${p.coins.toLocaleString()}</div></div><div class="price">US$${usdForCoins(p.coins)}</div>`; c.dataset.coins=p.coins;} c.addEventListener('click', ()=>selectPack(c,p)); grid.appendChild(c);});
+function clearSelection(){ document.querySelectorAll('.card').forEach(x=>x.classList.remove('selected')); selectedPack=null; updateBuyText(); }
+let selectedPack=null;
+function selectPack(el,p){ clearSelection(); if(p.coins==='custom'){ el.classList.add('selected'); selectedPack={coins:'custom'}; document.getElementById('customAmount').focus(); } else { el.classList.add('selected'); selectedPack=p; document.getElementById('customAmount').value=''; } updateBuyText(); }
+const customInput=document.getElementById('customAmount'); const customCoins=document.getElementById('customCoins');
+customInput.addEventListener('input', ()=>{ const usd=parseFloat(customInput.value)||0; const coins=Math.floor(usd / rateUSDperCoin); customCoins.textContent=`${coins.toLocaleString()} Coins`; if(usd>0) selectedPack={coins:coins, usd:usd.toFixed(2), custom:true}; updateBuyText(); });
+function updateBuyText(){ const buyBtn=document.getElementById('buyBtn'); let usd=0; if(selectedPack){ if(selectedPack.custom){ usd=parseFloat(selectedPack.usd)||0; } else if(selectedPack.coins){ usd=parseFloat(usdForCoins(selectedPack.coins)); } } buyBtn.textContent=`Buy for US$${usd.toFixed(2)}`; }
+const modal=document.getElementById('modal'); const modalContent=document.getElementById('modalContent');
+function openModal(html){ modalContent.innerHTML=html; modal.style.display='flex'; }
+function closeModal(){ modal.style.display='none'; modalContent.innerHTML=''; }
+document.getElementById('searchBtn').addEventListener('click', ()=>{ const id=document.getElementById('searchId').value.trim(); if(!id){ showToast('Please enter an ID'); return; } openModal(`<h3>Searching for user…</h3><div class="spinner"></div>`); setTimeout(()=>{ closeModal(); showToast(`User '${id}' not found (simulated)`); }, 1200); });
+function showToast(msg){ openModal(`<div style="padding:10px 6px"><div style="font-weight:700">${msg}</div><div style="margin-top:8px;color:#666;font-size:13px">This is a simulated preview only.</div><div style="margin-top:12px"><button onclick="closeModal()" style="padding:8px 12px;border-radius:8px;border:0;background:#efefef;cursor:pointer">OK</button></div></div>`); }
+function simulatePayment(usd, coins){ openModal(`<h3>Confirm purchase</h3><div style="margin:10px 0">${coins.toLocaleString()} coins — <strong>US$${usd.toFixed(2)}</strong></div><div style="display:flex;gap:12px;justify-content:center;margin-top:8px"><button onclick="closeModal()" style="padding:8px 12px;border-radius:8px;border:1px solid #ddd;background:#fff;cursor:pointer">Cancel</button><button id="confirmPay" style="padding:8px 12px;border-radius:8px;border:0;background:var(--accent);color:#fff;cursor:pointer">Confirm</button></div>`); document.getElementById('confirmPay').addEventListener('click', ()=>{ openModal(`<h3>Processing payment…</h3><div class="spinner"></div>`); setTimeout(()=>{ openModal(`<h3>Payment successful</h3><div style="font-size:20px;margin-top:8px">✅</div><div style="margin-top:12px"><button onclick="closeModal()" style="padding:8px 14px;border-radius:8px;border:0;background:#efefef;cursor:pointer">OK</button></div>`); }, 1400); }); }
+document.getElementById('buyBtn').addEventListener('click', ()=>{ let usd=0, coins=0; if(selectedPack){ if(selectedPack.custom){ usd=parseFloat(selectedPack.usd)||0; coins=selectedPack.coins||0; } else if(selectedPack.coins){ coins=selectedPack.coins; usd=parseFloat(usdForCoins(coins)); } } if(!usd||usd<=0){ showToast('Please choose an amount or enter custom USD > 0'); return; } simulatePayment(usd, coins); });
+document.getElementById('customConfirm').addEventListener('click', ()=>{ const usd=parseFloat(customInput.value)||0; if(usd<=0){ showToast('Enter an amount in USD'); return; } const coins=Math.floor(usd / rateUSDperCoin); selectedPack={ custom:true, usd:usd.toFixed(2), coins:coins }; updateBuyText(); simulatePayment(parseFloat(selectedPack.usd), coins); });
+modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
+updateBuyText();
+// register service worker
+if('serviceWorker' in navigator){ navigator.serviceWorker.register('service-worker.js').then(()=>{console.log('SW registered');}).catch(()=>{}); }
+</script>
+</html>
