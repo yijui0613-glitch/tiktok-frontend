@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="manifest" href="manifest.json">
   <link rel="icon" href="logo.png">
   <title>TikTok Coins - US Version</title>
   <style>
@@ -13,6 +12,7 @@
       --accent: #ff0050;
       --muted: #6b6b6b;
       --radius: 12px;
+      --success: #00c853;
     }
     body {
       margin: 0;
@@ -29,7 +29,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 6px;
+      margin-bottom: 10px;
     }
     .header img {
       width: 44px;
@@ -41,7 +41,7 @@
       font-size: 20px;
     }
     h1 {
-      font-size: 28px;
+      font-size: 26px;
       margin: 10px 0 14px;
       font-weight: 800;
     }
@@ -81,9 +81,11 @@
       padding: 16px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
       cursor: pointer;
-      transition: transform 0.2s ease;
+      border: 2px solid transparent;
+      transition: 0.2s;
     }
-    .card:hover {
+    .card.active {
+      border-color: var(--accent);
       transform: scale(1.05);
     }
     .card img {
@@ -141,6 +143,12 @@
       border-radius: 6px;
       background: #fff;
       padding: 4px;
+      cursor: pointer;
+      transition: transform 0.2s ease, border 0.2s ease;
+    }
+    .pay-methods img.selected {
+      border-color: var(--accent);
+      transform: scale(1.08);
     }
     .invite {
       display: flex;
@@ -158,7 +166,8 @@
     .invite small {
       color: var(--muted);
     }
-    /* 模擬付款彈窗 */
+
+    /* --- 模擬付款彈窗 --- */
     .modal {
       display: none;
       position: fixed;
@@ -183,19 +192,23 @@
       from { opacity: 0; transform: translateY(-10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .modal-content img {
-      width: 48px;
-      margin-bottom: 10px;
+    .loader {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid var(--accent);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      margin: 0 auto 14px;
+      animation: spin 1s linear infinite;
     }
-    .modal-content button {
-      margin-top: 16px;
-      background: var(--accent);
-      border: none;
-      color: white;
-      padding: 10px 16px;
-      border-radius: var(--radius);
-      font-weight: 600;
-      cursor: pointer;
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .success {
+      color: var(--success);
+      font-size: 36px;
+      margin-bottom: 10px;
     }
   </style>
 </head>
@@ -212,30 +225,30 @@
       <button>Search</button>
     </div>
 
-    <div class="grid">
-      <div class="card"><img src="coin.png" alt=""> <b>30</b><br>US$0.42</div>
-      <div class="card"><img src="coin.png" alt=""> <b>350</b><br>US$4.95</div>
-      <div class="card"><img src="coin.png" alt=""> <b>700</b><br>US$9.90</div>
-      <div class="card"><img src="coin.png" alt=""> <b>7,000</b><br>US$99.00</div>
-      <div class="card"><img src="coin.png" alt=""> <b>17,500</b><br>US$247.50</div>
-      <div class="card"><b>Custom</b></div>
+    <div class="grid" id="coinGrid">
+      <div class="card" data-usd="0.42" data-coins="30"><img src="coin.png" alt=""> <b>30</b><br>US$0.42</div>
+      <div class="card" data-usd="4.95" data-coins="350"><img src="coin.png" alt=""> <b>350</b><br>US$4.95</div>
+      <div class="card" data-usd="9.90" data-coins="700"><img src="coin.png" alt=""> <b>700</b><br>US$9.90</div>
+      <div class="card" data-usd="99.00" data-coins="7000"><img src="coin.png" alt=""> <b>7,000</b><br>US$99.00</div>
+      <div class="card" data-usd="247.50" data-coins="17500"><img src="coin.png" alt=""> <b>17,500</b><br>US$247.50</div>
+      <div class="card" data-usd="0" data-coins="0"><b>Custom</b></div>
     </div>
 
     <div class="custom">
-      <input type="text" placeholder="Enter amount (USD)">
-      <span>0 Coins</span>
+      <input type="text" id="amountInput" placeholder="Enter amount (USD)">
+      <span id="coinDisplay">0 Coins</span>
       <button id="payBtn">Pay</button>
     </div>
 
     <div class="pay">
-      <h3>Payment Methods</h3>
-      <div class="pay-methods">
-        <img src="pay_visa.png" alt="Visa">
-        <img src="pay_mastercard.png" alt="Mastercard">
-        <img src="pay_paypal.png" alt="PayPal">
-        <img src="pay_applepay.png" alt="Apple Pay">
-        <img src="pay_amex.png" alt="Amex">
-        <img src="pay_venmo.png" alt="Venmo">
+      <h3>Select Payment Method</h3>
+      <div class="pay-methods" id="paymentMethods">
+        <img src="pay_visa.png" alt="Visa" data-method="Visa">
+        <img src="pay_mastercard.png" alt="Mastercard" data-method="Mastercard">
+        <img src="pay_paypal.png" alt="PayPal" data-method="PayPal">
+        <img src="pay_applepay.png" alt="Apple Pay" data-method="Apple Pay">
+        <img src="pay_amex.png" alt="Amex" data-method="Amex">
+        <img src="pay_venmo.png" alt="Venmo" data-method="Venmo">
       </div>
     </div>
 
@@ -250,20 +263,67 @@
 
   <!-- 模擬付款彈窗 -->
   <div class="modal" id="paymentModal">
-    <div class="modal-content">
-      <img src="coin.png" alt="">
+    <div class="modal-content" id="modalContent">
+      <div class="loader"></div>
       <h3>Processing Payment...</h3>
       <p>Please wait a moment</p>
-      <button onclick="closeModal()">OK</button>
     </div>
   </div>
 
   <script>
     const modal = document.getElementById("paymentModal");
+    const modalContent = document.getElementById("modalContent");
     const payBtn = document.getElementById("payBtn");
-    payBtn.addEventListener("click", () => {
-      modal.style.display = "flex";
+    const cards = document.querySelectorAll(".card");
+    const amountInput = document.getElementById("amountInput");
+    const coinDisplay = document.getElementById("coinDisplay");
+    const methods = document.querySelectorAll("#paymentMethods img");
+
+    let selectedMethod = null;
+    const ratio = 707; // 約等於 TikTok 匯率
+
+    cards.forEach(card => {
+      card.addEventListener("click", () => {
+        cards.forEach(c => c.classList.remove("active"));
+        card.classList.add("active");
+        const usd = card.dataset.usd;
+        const coins = card.dataset.coins;
+        if (usd > 0) {
+          amountInput.value = usd;
+          coinDisplay.textContent = coins + " Coins";
+        } else {
+          amountInput.value = "";
+          coinDisplay.textContent = "0 Coins";
+        }
+      });
     });
+
+    amountInput.addEventListener("input", () => {
+      const usd = parseFloat(amountInput.value) || 0;
+      const coins = Math.round(usd * ratio);
+      coinDisplay.textContent = coins + " Coins";
+    });
+
+    methods.forEach(m => {
+      m.addEventListener("click", () => {
+        methods.forEach(x => x.classList.remove("selected"));
+        m.classList.add("selected");
+        selectedMethod = m.dataset.method;
+      });
+    });
+
+    payBtn.addEventListener("click", () => {
+      if (!selectedMethod) {
+        alert("Please select a payment method first.");
+        return;
+      }
+      modal.style.display = "flex";
+      modalContent.innerHTML = '<div class="loader"></div><h3>Processing Payment...</h3><p>Please wait a moment</p>';
+      setTimeout(() => {
+        modalContent.innerHTML = '<div class="success">✅</div><h3>Payment Successful!</h3><p>Coins Added to Your Account</p><button onclick="closeModal()">OK</button>';
+      }, 2500);
+    });
+
     function closeModal() {
       modal.style.display = "none";
     }
