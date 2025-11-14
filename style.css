@@ -1,6 +1,0 @@
-body{font-family:sans-serif;background:#fff;padding:20px}
-.header{display:flex;align-items:center;gap:10px}
-.logo{width:40px}
-.coins-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:20px}
-.card{padding:20px;border-radius:12px;background:#fafafa;box-shadow:0 2px 6px rgba(0,0,0,0.1);text-align:center}
-.card img{width:40px}
