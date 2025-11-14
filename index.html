@@ -1,96 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>TikTok Coins - Mock</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Coins Mock</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <!-- Topbar -->
-  <header class="topbar">
-    <img src="images/logo.png" class="logo" alt="logo">
-    <div class="brand-text">
-      <div class="title">TokTik</div>
-      <div class="subtitle">Recharge Center</div>
+
+    <!-- Header -->
+    <div class="topbar">
+        <img src="images/logo.png" class="logo">
+        <div class="brand-text">
+            <div class="title">TikTok</div>
+            <div class="subtitle">Purchase Coins</div>
+        </div>
     </div>
-  </header>
 
-  <!-- Search / ID -->
-  <div class="search-row">
-    <input id="tiktokId" type="text" placeholder="Enter TikTok ID">
-    <button id="searchBtn">Search</button>
-  </div>
+    <!-- Search -->
+    <div class="search-row">
+        <input id="tiktokId" type="text" placeholder="Enter TikTok ID">
+        <button id="searchBtn">Search</button>
+    </div>
 
-  <!-- Title -->
-  <main class="container">
-    <h1>Recharge Coins</h1>
+    <!-- Title -->
+    <div class="container">
+        <h1>Purchase TikTok Coins</h1>
+    </div>
 
-    <!-- Coins grid (rendered by JS) -->
-    <div id="coinsGrid" class="grid" aria-live="polite"></div>
+    <!-- Coins Grid -->
+    <div id="coinsGrid" class="grid"></div>
 
-    <!-- Custom -->
+    <!-- Custom Input -->
     <div class="custom-row">
-      <input id="customCoins" type="number" min="1" placeholder="Custom coins (e.g. 1000)">
-      <div class="custom-summary">
-        <div id="customCoinsCount">0 Coins</div>
-        <div id="customCoinsUSD">US$0.00</div>
-      </div>
+        <input id="customCoins" type="number" placeholder="Custom coins (e.g. 1000)">
+        <div class="custom-summary">
+            <div id="customCoinsCount">0 Coins</div>
+            <div id="customCoinsUSD">US$0.00</div>
+        </div>
     </div>
 
-    <!-- Selected & Recharge -->
+    <!-- Selected Summary -->
     <div class="summary-row">
-      <div class="selected-info">
-        <div id="selectedText">Selected: 0 Coins</div>
-        <div id="selectedUSD">US$0.00</div>
-      </div>
-      <button id="payBtn" class="recharge-btn" disabled>Recharge</button>
+        <div class="selected-info">
+            <div id="selectedText">Selected: 0 Coins</div>
+            <div id="selectedUSD">US$0.00</div>
+        </div>
+        <button id="payBtn" class="recharge-btn" disabled>Recharge</button>
     </div>
-  </main>
 
-  <!-- Payment Modal -->
-  <div id="paymentModal" class="modal" aria-hidden="true">
-    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="pmTitle">
-      <h2 id="pmTitle">Select payment method</h2>
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-box">
+            <h2>Choose payment method</h2>
 
-      <div class="method-row">
-        <button class="method" data-method="apple">
-          <img src="images/applepay.png" class="payicon" alt="Apple Pay"> Apple Pay
-        </button>
-        <button class="method" data-method="visa">
-          <img src="images/visa.png" class="payicon" alt="Visa"> VISA
-        </button>
-        <button class="method" data-method="paypal">
-          <img src="images/paypal.png" class="payicon" alt="PayPal"> PayPal
-        </button>
-        <button class="method" data-method="master">
-          <img src="images/master.png" class="payicon" alt="Mastercard"> Mastercard
-        </button>
-      </div>
+            <div class="method-row">
+                <div class="method"><img class="payicon" src="images/pay_applepay.svg"> Apple Pay</div>
+                <div class="method"><img class="payicon" src="images/pay_visa.svg"> Visa</div>
+                <div class="method"><img class="payicon" src="images/pay_paypal.svg"> PayPal</div>
+                <div class="method"><img class="payicon" src="images/pay_mastercard.svg"> Mastercard</div>
+            </div>
 
-      <div class="modal-actions">
-        <button id="cancelPay" class="btn">Cancel</button>
-        <button id="confirmPay" class="do-pay">Pay</button>
-      </div>
+            <div class="modal-actions">
+                <button id="cancelPay" class="btn">Cancel</button>
+                <button id="confirmPay" class="do-pay">Pay now</button>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <!-- Success Modal (use A = last generated) -->
-  <div id="successModal" class="modal" aria-hidden="true">
-    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="successTitle">
-      <img id="checkmark" src="images/success.png" alt="success">
-      <div id="successText">Payment completed</div>
-      <div id="coins">Recharged 0 Coins</div>
-      <button id="goBack" class="btn">Go Back</button>
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-box">
+            <img id="checkmark" src="images/check_success.svg">
+            <div id="successText">Payment completed</div>
+            <div id="coins">Recharged 0 Coins</div>
+            <button id="goBack" class="btn">Go Back</button>
+        </div>
     </div>
-  </div>
 
-  <!-- Loading overlay (B = last generated) -->
-  <div id="loading" class="loading hidden" aria-hidden="true">
-    <div class="spinner" role="status" aria-label="Processing"></div>
-    <div class="loading-text">Processing…</div>
-  </div>
+    <!-- Loading Animation -->
+    <div id="loading" class="loading hidden">
+        <div class="spinner"></div>
+        <div class="loading-text">Processing...</div>
+    </div>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
