@@ -276,4 +276,7 @@ body {
 #tiktokId {
     font-size: 16px;   /* ← iPhone 不會放大 */
 }
+#customCoins {
+    font-size: 16px;   /* ← 不會放大 */
+}
 
