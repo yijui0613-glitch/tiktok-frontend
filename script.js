@@ -109,3 +109,15 @@ confirmPay.addEventListener("click", () => {
 goBack.addEventListener("click", () => {
     successModal.classList.remove("active");
 });
+/* ----------------------------- */
+/*     Payment Method Active     */
+/* ----------------------------- */
+
+const methods = document.querySelectorAll(".method");
+
+methods.forEach(m => {
+    m.addEventListener("click", () => {
+        methods.forEach(x => x.classList.remove("active"));
+        m.classList.add("active");
+    });
+});
