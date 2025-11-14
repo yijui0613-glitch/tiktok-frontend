@@ -267,4 +267,10 @@ body {
     gap: 14px;
     padding: 0 14px;
 }
+/* Search 按鈕按下去的效果 */
+#searchBtn:active {
+    opacity: 0.7;
+    transform: scale(0.97);
+    transition: 0.1s;
+}
 
