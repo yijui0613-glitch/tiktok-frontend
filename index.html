@@ -30,6 +30,10 @@
 
     <div class="custom-row">
         <input id="customCoins" placeholder="Custom coins (e.g. 1000)" />
+        <div class="custom-summary">
+            <div id="customCount">0 Coins</div>
+            <div id="customUSD">US$0.00</div>
+        </div>
     </div>
 
     <div class="summary-row">
@@ -37,70 +41,88 @@
             <div id="selectedText">Selected: 0 Coins</div>
             <div id="selectedUSD">US$0.00</div>
         </div>
+
         <button id="payBtn" class="pay-btn" disabled>Pay</button>
     </div>
 </main>
 
-<!-- 支付方式 -->
+<!-- Payment Method Modal -->
 <div id="payMethods" class="overlay hidden" aria-hidden="true">
     <div class="modal">
         <h3>Choose payment method</h3>
-        <div class="methods-horizontal">
 
+        <div class="methods-horizontal">
             <button class="method" data-method="applepay">
-                <img src="images/pay_applepay.svg">
+                <img src="images/pay_applepay.svg" alt="Apple Pay">
                 <span>Apple Pay</span>
             </button>
 
             <button class="method" data-method="visa">
-                <img src="images/pay_visa.svg">
+                <img src="images/pay_visa.svg" alt="Visa">
                 <span>Visa</span>
             </button>
 
             <button class="method" data-method="paypal">
-                <img src="images/pay_paypal.svg">
+                <img src="images/pay_paypal.svg" alt="PayPal">
                 <span>PayPal</span>
             </button>
 
             <button class="method" data-method="mastercard">
-                <img src="images/pay_mastercard.svg">
+                <img src="images/pay_mastercard.svg" alt="Mastercard">
                 <span>Mastercard</span>
             </button>
-
         </div>
 
         <div class="modal-actions">
             <button id="confirmPay" class="do-pay">Pay now</button>
-            <button id="closeMethodsBtn" class="btn">Cancel</button>
+            <button id="closeMethods" class="btn">Cancel</button>
         </div>
     </div>
 </div>
 
-<!-- 處理中 -->
+<!-- Processing Overlay -->
 <div id="processing" class="overlay hidden" aria-hidden="true">
     <div class="processing-box">
         <div class="spinner-outer">
-            <div class="spinner"></div>
-            <div class="spinner"></div>
-            <div class="spinner"></div>
             <div class="spinner"></div>
         </div>
         <p>Processing payment...</p>
     </div>
 </div>
 
-<!-- 成功 -->
+<!-- Success Modal -->
 <div id="success" class="overlay hidden" aria-hidden="true">
     <div class="modal success-modal">
-        <svg id="success-svg" viewBox="0 0 120 120" width="120" height="120">
-            <circle class="bg-circle" cx="60" cy="60" r="36" fill="#e9f0f9" />
-            <circle class="ring" cx="60" cy="60" r="48" fill="none" />
-            <path class="check-path" d="M40 62L54 75L80 45" stroke="#10B981"
-                  stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+
+        <!-- *** TikTok 官方動畫版 Success SVG *** -->
+        <svg id="successSvg" viewBox="0 0 120 120" width="120" height="120" aria-hidden="true">
+            <!-- 外圈動畫 -->
+            <circle cx="60" cy="60" r="52" fill="none" stroke="#00f2ea" stroke-width="8"
+                stroke-dasharray="326" stroke-dashoffset="326">
+                <animate attributeName="stroke-dashoffset" from="326" to="0" dur="0.4s" fill="freeze"/>
+            </circle>
+
+            <!-- 第二層紅色外圈 -->
+            <circle cx="60" cy="60" r="46" fill="none" stroke="#ff0050" stroke-width="8"
+                stroke-dasharray="289" stroke-dashoffset="289">
+                <animate attributeName="stroke-dashoffset" from="289" to="0" dur="0.4s" begin="0.1s" fill="freeze"/>
+            </circle>
+
+            <!-- 白底圓背景 -->
+            <circle cx="60" cy="60" r="36" fill="white" opacity="0">
+                <animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="0.35s" fill="freeze"/>
+            </circle>
+
+            <!-- 綠色勾勾 -->
+            <path d="M40 60 L55 75 L85 45" stroke="#19c37d" stroke-width="8"
+                stroke-linecap="round" stroke-linejoin="round"
+                fill="none" stroke-dasharray="80" stroke-dashoffset="80">
+                <animate attributeName="stroke-dashoffset" from="80" to="0" dur="0.35s" begin="0.45s" fill="freeze"/>
+            </path>
         </svg>
 
         <h3>Payment completed</h3>
-        <p id="successText">Recharged <span id="coinsNum">0</span> Coins</p>
+        <p id="successText">Recharged 0 Coins</p>
 
         <button id="successClose" class="btn">Go Back</button>
     </div>
