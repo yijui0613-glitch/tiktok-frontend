@@ -1,43 +1,21 @@
-/* 手機版：一行一個卡片（TikTok 官方風格） */
-#coinsGrid {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    padding: 12px;
-}
-
-/* TikTok 官方卡片樣式（窄版、直式） */
+/* 只縮小 6 個卡片的尺寸（不變其他區域） */
 .card {
-    width: 100%;
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 20px 16px;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-    border: 1px solid #eee;
-    transition: 0.2s;
+    padding: 18px 10px;       /* 原本很大，縮小 padding */
+    border-radius: 12px;      
 }
 
-.card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 14px rgba(0,0,0,0.10);
-}
-
-/* Coin icon 調整成官方大小 */
+/* 縮小 icon */
 .card img.icon {
-    width: 48px;
-    height: 48px;
-    margin-bottom: 8px;
-}
-
-/* 文字比例調整成 TikTok 規格 */
-.card .amount {
-    font-size: 20px;
-    font-weight: 600;
+    width: 38px;
+    height: 38px;
     margin-bottom: 4px;
 }
 
-.card .usd {
+/* 文字也微調小一點 */
+.card .amount {
     font-size: 15px;
-    color: #777;
+}
+
+.card .usd {
+    font-size: 13px;
 }
