@@ -8,9 +8,10 @@
 </head>
 
 <body>
+
 <header class="topbar">
     <div class="brand">
-        <img src="images/logo.svg" class="logo" alt="TikTok">
+        <img src="images/logo.png" class="logo" alt="TikTok">
         <div class="brand-text">
             <div class="title">TikTok</div>
             <div class="subtitle">Purchase Coins</div>
@@ -18,7 +19,7 @@
     </div>
 
     <div class="idrow">
-        <input id="tiktokID" placeholder="Enter TikTok ID (e.g. username123)" />
+        <input id="tiktokId" placeholder="Enter TikTok ID (e.g. username123)" />
         <button id="searchBtn" class="btn">Search</button>
     </div>
 </header>
@@ -27,7 +28,7 @@
     <h1>Purchase TikTok Coins</h1>
 
     <section class="grid" id="coinsGrid">
-        <!-- Cards injected by script.js -->
+        <!-- cards injected by script.js -->
     </section>
 
     <div class="custom-row">
@@ -47,12 +48,12 @@
     </div>
 </main>
 
-<!-- Payment method modal -->
+<!-- Payment methods modal -->
 <div id="payMethods" class="overlay hidden" aria-hidden="true">
     <div class="modal">
         <h3>Choose payment method</h3>
 
-        <div class="methods horizontal">
+        <div class="methods-horizontal">
             <button class="method" data-method="applepay">
                 <img src="images/pay_applepay.svg" alt="Apple Pay">
                 <span>Apple Pay</span>
@@ -81,11 +82,10 @@
     </div>
 </div>
 
-<!-- Processing screen -->
+<!-- Processing animation -->
 <div id="processing" class="overlay hidden" aria-hidden="true">
     <div class="processing-box">
         <div class="spinner-outer">
-            <div class="spinner"></div>
             <div class="spinner"></div>
             <div class="spinner"></div>
             <div class="spinner"></div>
@@ -94,13 +94,16 @@
     </div>
 </div>
 
-<!-- Success screen -->
+<!-- Success modal -->
 <div id="success" class="overlay hidden" aria-hidden="true">
     <div class="modal success-modal">
-        <svg id="successSvg" width="120" height="120">
-            <circle class="bg-circle" cx="60" cy="60" r="36" fill="#e0f9e7"></circle>
-            <circle class="ring" cx="60" cy="60" r="50" fill="none" stroke="#4CAF50" stroke-width="6"></circle>
-            <path class="check" d="M40 60 L55 75 L80 45" fill="none" stroke="#4CAF50" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
+        <svg id="successSvg" viewBox="0 0 120 120" width="120" height="120">
+            <circle class="bg-circle" cx="60" cy="60" r="56" fill="#e9f9ef"/>
+            <circle class="ring" cx="60" cy="60" r="48" fill="none" stroke="#4bb543" stroke-width="6"/>
+            <path id="check-path" class="check"
+                  d="M44 63 L57 75 L82 45"
+                  stroke="#4bb543" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"
+                  fill="none"/>
         </svg>
 
         <h3>Payment completed</h3>
@@ -111,5 +114,6 @@
 </div>
 
 <script src="script.js"></script>
+
 </body>
 </html>
