@@ -240,4 +240,9 @@ body {
     border-radius: 12px;
     font-size: 16px;
 }
+.method.active {
+    border: 2px solid #ff0050;   /* TikTok 紅 */
+    background: #ffe6ef;         /* 淺粉背景讓效果更明顯 */
+    transition: 0.2s;
+}
 
