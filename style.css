@@ -23,9 +23,9 @@ body {
 }
 
 .logo {
-    width: 38px;
-    height: 38px;
-    border-radius: 8px;
+    width: 54px;      /* 調整到和 TikTok 官方一樣大小 */
+    height: 54px;
+    border-radius: 12px;
     object-fit: contain;
 }
 
@@ -90,7 +90,7 @@ body {
 .card {
     background: #fafafa;
     border-radius: 16px;
-    padding: 18px 10px;
+    padding: 20px 10px;
     text-align: center;
     border: 1px solid #eee;
     transition: 0.2s;
@@ -101,18 +101,18 @@ body {
 }
 
 .card .icon {
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
     margin-bottom: 8px;
 }
 
 .amount {
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 700;
 }
 
 .usd {
-    font-size: 14px;
+    font-size: 13px;
     color: #666;
     margin-top: 4px;
 }
@@ -173,7 +173,7 @@ body {
 }
 
 /* ---------------------- */
-/* Payment Modal Layout   */
+/* Payment Modal (預設隱藏) */
 /* ---------------------- */
 .modal {
     position: fixed;
@@ -182,10 +182,11 @@ body {
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.35);
-    display: flex;
+    display: none;          /* ← 修正！預設隱藏 */
     justify-content: center;
     align-items: center;
     padding: 14px;
+    z-index: 10;
 }
 
 .modal-box {
@@ -239,13 +240,18 @@ body {
 }
 
 /* ---------------------- */
-/* Success Modal          */
+/* Success Modal (預設隱藏) */
 /* ---------------------- */
+#successModal {
+    display: none;      /* ← 修正 */
+}
+
 #successModal .modal-box {
     text-align: center;
 }
 
 #checkmark {
+    width: 120px;
     margin: 0 auto 16px;
 }
 
