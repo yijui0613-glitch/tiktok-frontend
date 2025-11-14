@@ -253,4 +253,11 @@ body {
     font-size: 16px;
     border: none;
 }
+/* 選取時的高亮效果 */
+.card.selected {
+    border: 2px solid #ff0050 !important; /* 紅色外框 */
+    background: #ffe6ef !important;       /* 淡粉背景 */
+    transform: scale(1.02);               /* 微微放大 */
+    transition: 0.15s;
+}
 
