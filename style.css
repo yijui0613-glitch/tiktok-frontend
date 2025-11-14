@@ -158,16 +158,20 @@ body {
     font-size: 18px;
     border: none;
     border-radius: 12px;
+}
+
+/* Recharge Button (紅底白字) */
+.recharge-btn {
     background: #ff0050;
     color: white;
 }
 
-.btn:disabled {
+.recharge-btn:disabled {
     background: #ff7aa6;
 }
 
 /* ---------------------- */
-/* Modal Base — FIXED     */
+/* Modal Base             */
 /* ---------------------- */
 .modal {
     position: fixed;
@@ -177,18 +181,17 @@ body {
     height: 100%;
     background: rgba(0,0,0,0.35);
 
-    display: none;   /* ✅ 不再強制顯示，修復爆炸 */
+    display: none;
     justify-content: center;
     align-items: center;
     padding: 14px;
-    z-index: 999;    /* 避免層級錯誤 */
+    z-index: 999;
 }
 
 .modal.active {
-    display: flex;   /* ✅ 正常顯示 */
+    display: flex;
 }
 
-/* Modal box */
 .modal-box {
     background: white;
     width: 100%;
@@ -197,7 +200,7 @@ body {
     border-radius: 18px;
 }
 
-/* Payment method buttons */
+/* Payment Method Buttons */
 .method-row {
     display: flex;
     flex-direction: column;
@@ -206,16 +209,12 @@ body {
 }
 
 .method {
-    display: flex;
-    align-items: center;
-    gap: 10px;
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: 14px;
-    font-size: 16px;
 }
 
-/* Modal Bottom Buttons */
+/* Modal footer */
 .modal-actions {
     display: flex;
     justify-content: flex-end;
@@ -232,13 +231,6 @@ body {
     font-size: 16px;
 }
 
-.btn {
-    border: 1px solid #ccc;
-    padding: 14px 20px;
-    border-radius: 12px;
-    font-size: 16px;
-}
-
 /* ---------------------- */
 /* Success Modal          */
 /* ---------------------- */
@@ -250,15 +242,4 @@ body {
     width: 80px;
     height: 80px;
     margin: 0 auto 16px;
-}
-
-#successText {
-    font-size: 20px;
-    margin: 12px 0;
-}
-
-#coins {
-    font-size: 18px;
-    font-weight: bold;
-    color: #444;
 }
