@@ -232,3 +232,12 @@ body {
     margin-top: 12px;
     font-size: 16px;
 }
+.modal-btn-red {
+    background: #ff0050;
+    color: #ffffff;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 12px;
+    font-size: 16px;
+}
+
