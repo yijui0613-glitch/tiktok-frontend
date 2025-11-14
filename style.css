@@ -1,116 +1,52 @@
-/* General layout */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: #f8f8f8;
-    color: #222;
-}
-
-/* Main container */
-.container {
-    max-width: 700px;
-    margin: auto;
-    padding: 20px;
-}
-
-/* Input box */
-input {
-    width: 100%;
-    padding: 14px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-
-/* Coin grid */
+/* === TikTok 官方風格：每排兩個卡片 === */
 #coinsGrid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 10px 0;
 }
 
-/* Coin card */
+/* 卡片樣式（官方版） */
 .card {
-    background: white;
-    padding: 20px;
-    border-radius: 14px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 18px 10px;
     text-align: center;
-    box-shadow: 0 0 10px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     transition: 0.2s;
 }
 
-.card:hover {
-    transform: scale(1.03);
+/* 圖示縮小 */
+.card img.icon {
+    height: 42px;
+    width: 42px;
+    margin-bottom: 8px;
 }
 
-/* Coin icon */
-.card img {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 10px;
+/* amount 金額（粗體） */
+.card .amount {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 4px;
 }
 
-/* Amount text */
-.amount {
-    font-size: 22px;
-    font-weight: bold;
-}
-
-/* USD text */
-.usd {
+/* 美金（淺色） */
+.card .usd {
     font-size: 15px;
-    color: #777;
+    color: #666;
 }
 
-/* Bottom selection box */
-#selectedText, #selectedUSD {
-    margin-top: 10px;
-    font-size: 18px;
-}
-
-/* Pay button */
-#payBtn {
-    width: 120px;
-    padding: 12px;
-    background: #ff0050;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 18px;
-    float: right;
-    margin-top: 10px;
-}
-
-/* Modal (payment window) */
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.4);
-    display: none;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background: white;
-    width: 90%;
-    max-width: 500px;
-    padding: 25px;
-    border-radius: 14px;
-}
-
-/* Success modal */
-.success {
-    display: none;
-    text-align: center;
-    padding: 20px;
-}
-
-.success img {
-    width: 60px;
-    height: 60px;
+/* 手機 RWD：小螢幕兩欄保持一致 */
+@media (max-width: 480px) {
+    #coinsGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+    .card {
+        padding: 16px 10px;
+    }
+    .card img.icon {
+        height: 40px;
+        width: 40px;
+    }
 }
