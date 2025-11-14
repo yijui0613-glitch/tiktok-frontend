@@ -107,7 +107,7 @@ confirmPay.addEventListener("click", () => {
         coinsResult.innerText = `Recharged ${selected.amount} Coins`;
         successModal.classList.add("active");
 
-    }, 1500);
+    }, 3500);
 });
 
 goBack.addEventListener("click", () => {
@@ -125,6 +125,7 @@ methods.forEach(m => {
         m.classList.add("active");
     });
 });
+
 
 
 
