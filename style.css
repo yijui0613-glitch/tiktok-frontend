@@ -260,4 +260,11 @@ body {
     transform: scale(1.02);               /* 微微放大 */
     transition: 0.15s;
 }
+/* 改成 3 欄版面 */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 14px;
+    padding: 0 14px;
+}
 
