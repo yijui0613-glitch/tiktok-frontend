@@ -1,0 +1,64 @@
+:root{--accent:#ff2d55;--muted:#6b6b6b;--card:#f7f7f8}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Helvetica,Arial;background:#fff;color:#111}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #eee}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:44px;height:44px}
+.idrow{display:flex;gap:8px;align-items:center}
+.idrow input{padding:10px 12px;border-radius:999px;border:1px solid #eee;width:220px}
+.container{max-width:820px;margin:18px auto;padding:0 16px}
+h1{margin:12px 0 18px;font-size:22px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:12px}
+.card{background:var(--card);padding:14px;border-radius:12px;text-align:center;cursor:pointer;border:1px solid rgba(0,0,0,0.04);transition:transform .12s,box-shadow .12s}
+.card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(0,0,0,0.06)}
+.card.selected{outline:3px solid rgba(255,45,85,0.08)}
+
+.card .icon{width:44px;height:44px;margin:4px auto}
+.card .num{font-weight:700;font-size:16px}
+.card .price{color:var(--muted);margin-top:6px}
+
+.custom-row{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.custom-row input{flex:1;padding:12px;border-radius:12px;border:1px solid #eee}
+.custom-summary{min-width:120px;padding:10px;border-radius:12px;background:#fff;border:1px solid #eee;text-align:center}
+
+.summary-row{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-top:8px}
+.selected-info{flex:1;padding:12px;border-radius:12px;background:#fff;border:1px solid #eee}
+.pay-btn{background:var(--accent);color:#fff;padding:12px 18px;border-radius:12px;border:0;font-weight:700;cursor:pointer}
+.pay-btn:disabled{opacity:.5;cursor:not-allowed}
+
+/* modal & overlay */
+.overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.45);z-index:1000}
+.hidden{display:none}
+.modal{background:#fff;border-radius:14px;padding:18px;max-width:640px;width:92%;box-shadow:0 30px 60px rgba(0,0,0,0.18)}
+.modal.small{max-width:360px}
+.methods{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+.methods.horizontal{flex-direction:row;justify-content:space-between}
+.method{flex:1;min-width:120px;background:#fff;border:1px solid #eee;padding:10px;border-radius:12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px}
+.method img{height:28px}
+.method.selected{outline:3px solid rgba(0,0,0,0.06);box-shadow:0 12px 30px rgba(0,0,0,0.06)}
+
+/* processing overlay style #2 (black background white spinner) */
+.processing-box{background:rgba(0,0,0,0.9);color:#fff;padding:24px;border-radius:14px;text-align:center;width:220px}
+.spinner-outer{width:72px;height:72px;margin:6px auto;position:relative}
+.spinner-seg{position:absolute;inset:0;border-radius:50%;}
+.spinner-seg::before{content:"";position:absolute;left:50%;top:6px;width:10px;height:18px;background:#fff;border-radius:4px;transform-origin:50% 32px;opacity:0.95}
+.spinner-seg:nth-child(1){transform:rotate(0deg)}
+.spinner-seg:nth-child(2){transform:rotate(90deg);}
+.spinner-seg:nth-child(3){transform:rotate(180deg);}
+.spinner-seg:nth-child(4){transform:rotate(270deg);}
+@keyframes spinfull{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.spinner-outer{animation:spinfull 1s linear infinite}
+
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:10px}
+.do-pay{background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;border:0;font-weight:700;cursor:pointer}
+.btn{background:#fff;border:1px solid #e9e9ee;padding:8px 12px;border-radius:10px;cursor:pointer}
+
+/* success svg animation */
+#success-svg{display:block;transform-origin:50% 50%}
+#success-svg .bg-circle{transform-origin:60px 60px;transform:scale(0.6);opacity:0;transition:transform 400ms,opacity 300ms}
+#success-svg .ring{transform-origin:60px 60px;transform:scale(0.9);opacity:0;transition:transform 350ms,opacity 250ms}
+#success-svg .check{stroke-dasharray:120;stroke-dashoffset:120;opacity:0;transition:stroke-dashoffset 600ms,opacity 150ms}
+#success-svg.animate .bg-circle{transform:scale(1);opacity:1}
+#success-svg.animate .ring{transform:scale(1);opacity:1;transition-delay:80ms}
+#success-svg.animate .check{stroke-dashoffset:0;opacity:1;transition-delay:220ms;transition-duration:520ms}
+@media (max-width:520px){.methods.horizontal{flex-direction:row;gap:8px;overflow:auto;padding-bottom:8px}.container{padding:0 12px}}
