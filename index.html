@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Purchase TikTok Coins — Full Mock</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    < img src="images/logo.svg" class="logo" alt="TikTok">
+    <div class="brand-text"><div class="title">TikTok</div><div class="subtitle">Purchase Coins</div></div>
+  </div>
+  <div class="idrow">
+    <input id="tiktokId" placeholder="Enter TikTok ID (e.g. username123)" />
+    <button id="searchBtn" class="btn">Search</button>
+  </div>
+</header>
+
+<main class="container">
+  <h1>Purchase TikTok Coins</h1>
+
+  <section class="grid" id="coinsGrid">
+    <!-- cards injected by script.js -->
+  </section>
+
+  <div class="custom-row">
+    <input id="customCoins" placeholder="Custom coins (e.g. 1000)" />
+    <div class="custom-summary"><div id="customCount">0 Coins</div><div id="customUSD">US$0.00</div></div>
+  </div>
+
+  <div class="summary-row">
+    <div class="selected-info">
+      <div id="selectedText">Selected: 0 Coins</div>
+      <div id="selectedUSD">US$0.00</div>
+    </div>
+    <button id="payBtn" class="pay-btn" disabled>Pay</button>
+  </div>
+</main>
+
+<!-- Payment methods modal (horizontal layout) -->
+<div id="payMethods" class="overlay hidden" aria-hidden="true">
+  <div class="modal">
+    <h3>Choose payment method</h3>
+    <div class="methods horizontal">
+      <button class="method" data-method="applepay">< img src="images/pay_applepay.svg" alt="Apple Pay"><span>Apple Pay</span></button>
+      <button class="method" data-method="visa">< img src="images/pay_visa.svg" alt="Visa"><span>Visa</span></button>
+      <button class="method" data-method="paypal">< img src="images/pay_paypal.svg" alt="PayPal"><span>PayPal</span></button>
+      <button class="method" data-method="mastercard">< img src="images/pay_mastercard.svg" alt="Mastercard"><span>Mastercard</span></button>
+    </div>
+    <div class="modal-actions">
+      <button id="confirmPay" class="do-pay">Pay now</button>
+      <button id="closeMethods" class="btn">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Processing overlay with style #2 (black background white spinner) -->
+<div id="processing" class="overlay hidden" aria-hidden="true">
+  <div class="processing-box">
+    <div class="spinner-outer">
+      <div class="spinner-seg"></div>
+      <div class="spinner-seg"></div>
+      <div class="spinner-seg"></div>
+      <div class="spinner-seg"></div>
+    </div>
+    <p>Processing payment...</p >
+  </div>
+</div>
+
+<!-- Success modal -->
+<div id="success" class="overlay hidden" aria-hidden="true">
+  <div class="modal small success-modal">
+    <svg id="success-svg" viewBox="0 0 120 120" width="120" height="120" aria-hidden="true">
+      <g class="bg-group">
+        <circle class="bg-circle" cx="60" cy="60" r="36" fill="#eaf9f0"/>
+      </g>
+      <circle class="ring" cx="60" cy="60" r="28" fill="#fff"/>
+      <path id="check-path" class="check" d="M44 62 L54 72 L78 48" fill="none" stroke="#10B981" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <h3>Payment completed</h3>
+    <p id="successText">Recharged <span id="sCoins">0</span> Coins</p >
+    <button id="successClose" class="btn">Go Back</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
