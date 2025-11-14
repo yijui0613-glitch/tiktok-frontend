@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Purchase TikTok Coins</title>
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <img src="images/logo.png" alt="TikTok" class="logo">
+      <div class="header-title">Purchase TikTok Coins</div>
+    </div>
+    <div class="id-row">
+      <div class="id-input-wrap">
+        <svg class="tiktok-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="#010101" d="M12 2v7.2a4 4 0 1 0 4 4V8.1A6 6 0 1 1 12 2z"/></svg>
+        <input id="tiktokId" type="text" placeholder="Enter TikTok ID (e.g. username123)" />
+      </div>
+      <button id="searchBtn" class="btn-secondary">Search</button>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="coins-section">
+      <h2>Buy Coins</h2>
+      <div id="coinsGrid" class="coins-grid" aria-live="polite"></div>
+
+      <div class="custom-row">
+        <input id="customCoins" type="number" min="1" placeholder="Custom coins (e.g. 1000)" />
+        <div class="summary">
+          <div id="coinCount">0 Coins</div>
+          <div id="usdAmount">US$0.00</div>
+        </div>
+      </div>
+
+      <div class="selection-pay">
+        <div class="selected-info">
+          <div id="selectedText">Selected: 0 Coins</div>
+          <div id="selectedUSD">US$0.00</div>
+        </div>
+        <button id="payBtn" class="pay-btn">Pay</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Payment modal -->
+  <div id="overlay" class="overlay hidden" aria-hidden="true">
+    <div class="modal">
+      <h3>Choose Payment Method</h3>
+      <div class="methods">
+        <button class="method" data-method="applepay"><img src="images/pay_applepay.png" alt="Apple Pay">Apple Pay</button>
+        <button class="method" data-method="visa"><img src="images/pay_visa.png" alt="Visa">Visa</button>
+        <button class="method" data-method="paypal"><img src="images/pay_paypal.png" alt="PayPal">PayPal</button>
+        <button class="method" data-method="mastercard"><img src="images/pay_mastercard.png" alt="MasterCard">MasterCard</button>
+      </div>
+      <div class="modal-actions">
+        <button id="doPay" class="do-pay">Pay now</button>
+        <button id="closeOverlay" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Processing -->
+  <div id="processing" class="overlay hidden" aria-hidden="true">
+    <div class="modal small">
+      <div class="spinner" aria-hidden="true"></div>
+      <p>Processing payment...</p>
+    </div>
+  </div>
+
+  <!-- Success modal with inline SVG animated -->
+  <div id="success" class="overlay hidden" aria-hidden="true">
+    <div class="modal small success-modal">
+      <div class="success-icon-wrap">
+        <svg id="success-svg" viewBox="0 0 120 120" width="120" height="120" aria-hidden="true" role="img">
+          <defs>
+            <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="3" result="b"/>
+              <feOffset dx="0" dy="2" result="o"/>
+              <feMerge><feMergeNode in="o"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <g class="bg-group" filter="url(#shadow)">
+            <circle class="bg-circle" cx="60" cy="60" r="36" fill="#eaf9f0"/>
+          </g>
+          <circle class="ring" cx="60" cy="60" r="28" fill="#fff"/>
+          <path id="check-path" class="check" d="M44 62 L54 72 L78 48" fill="none" stroke="#1aa041" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3>Payment completed</h3>
+      <p id="successText">recharged <span id="sCoins">0</span> Coins</p>
+      <button id="successClose" class="btn-secondary">Go Back</button>
+    </div>
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
