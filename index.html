@@ -1,133 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>TikTok Coins – Full Mock</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Coins Mock</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-<header class="topbar">
-    <div class="brand">
-        <img src="images/logo.png" class="logo" alt="TikTok">
+
+    <!-- Header -->
+    <div class="topbar">
+        <img src="images/logo.png" class="logo">
         <div class="brand-text">
             <div class="title">TikTok</div>
             <div class="subtitle">Purchase Coins</div>
         </div>
     </div>
 
-    <div class="idrow">
-        <input id="tiktokID" placeholder="Enter TikTok ID (e.g. username123)" />
-        <button id="searchBtn" class="btn">Search</button>
+    <!-- Search Bar -->
+    <div class="search-row">
+        <input id="tiktokId" type="text" placeholder="Enter TikTok ID">
+        <button id="searchBtn">Search</button>
     </div>
-</header>
 
-<main class="container">
-    <h1>Purchase TikTok Coins</h1>
+    <!-- Title -->
+    <div class="container">
+        <h1>Purchase TikTok Coins</h1>
+    </div>
 
-    <section class="grid" id="coinsGrid"></section>
+    <!-- Coins Grid -->
+    <div id="coinsGrid" class="grid"></div>
 
+    <!-- Custom Input -->
     <div class="custom-row">
-        <input id="customCoins" placeholder="Custom coins (e.g. 1000)" />
+        <input id="customCoins" type="number" placeholder="Custom coins (e.g. 1000)">
         <div class="custom-summary">
-            <div id="customCount">0 Coins</div>
-            <div id="customUSD">US$0.00</div>
+            <div id="customCoinsCount">0 Coins</div>
+            <div id="customCoinsUSD">US$0.00</div>
         </div>
     </div>
 
+    <!-- Selected Summary -->
     <div class="summary-row">
         <div class="selected-info">
             <div id="selectedText">Selected: 0 Coins</div>
             <div id="selectedUSD">US$0.00</div>
         </div>
-
-        <button id="payBtn" class="pay-btn" disabled>Pay</button>
+        <button id="payBtn" class="btn recharge-btn" disabled>Recharge</button>
     </div>
-</main>
 
-<!-- Payment Method Modal -->
-<div id="payMethods" class="overlay hidden" aria-hidden="true">
-    <div class="modal">
-        <h3>Choose payment method</h3>
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-box">
+            <h2>Choose payment method</h2>
 
-        <div class="methods-horizontal">
-            <button class="method" data-method="applepay">
-                <img src="images/pay_applepay.svg" alt="Apple Pay">
-                <span>Apple Pay</span>
-            </button>
+            <div class="method-row">
+                <div class="method">Pay &nbsp; Apple Pay</div>
+                <div class="method">VISA &nbsp; Visa</div>
+                <div class="method">PayPal &nbsp; PayPal</div>
+                <div class="method">● &nbsp; Mastercard</div>
+            </div>
 
-            <button class="method" data-method="visa">
-                <img src="images/pay_visa.svg" alt="Visa">
-                <span>Visa</span>
-            </button>
-
-            <button class="method" data-method="paypal">
-                <img src="images/pay_paypal.svg" alt="PayPal">
-                <span>PayPal</span>
-            </button>
-
-            <button class="method" data-method="mastercard">
-                <img src="images/pay_mastercard.svg" alt="Mastercard">
-                <span>Mastercard</span>
-            </button>
-        </div>
-
-        <div class="modal-actions">
-            <button id="confirmPay" class="do-pay">Pay now</button>
-            <button id="closeMethods" class="btn">Cancel</button>
+            <div class="modal-actions">
+                <button id="cancelPay" class="btn">Cancel</button>
+                <button id="confirmPay" class="do-pay">Pay now</button>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Processing Overlay -->
-<div id="processing" class="overlay hidden" aria-hidden="true">
-    <div class="processing-box">
-        <div class="spinner-outer">
-            <div class="spinner"></div>
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-box">
+            <img id="checkmark" src="images/check_success.svg">
+            <div id="successText">Payment completed</div>
+            <div id="coins">Recharged 0 Coins</div>
+            <button id="goBack" class="btn">Go Back</button>
         </div>
-        <p>Processing payment...</p>
     </div>
-</div>
 
-<!-- Success Modal -->
-<div id="success" class="overlay hidden" aria-hidden="true">
-    <div class="modal success-modal">
-
-        <!-- *** TikTok 官方動畫版 Success SVG *** -->
-        <svg id="successSvg" viewBox="0 0 120 120" width="120" height="120" aria-hidden="true">
-            <!-- 外圈動畫 -->
-            <circle cx="60" cy="60" r="52" fill="none" stroke="#00f2ea" stroke-width="8"
-                stroke-dasharray="326" stroke-dashoffset="326">
-                <animate attributeName="stroke-dashoffset" from="326" to="0" dur="0.4s" fill="freeze"/>
-            </circle>
-
-            <!-- 第二層紅色外圈 -->
-            <circle cx="60" cy="60" r="46" fill="none" stroke="#ff0050" stroke-width="8"
-                stroke-dasharray="289" stroke-dashoffset="289">
-                <animate attributeName="stroke-dashoffset" from="289" to="0" dur="0.4s" begin="0.1s" fill="freeze"/>
-            </circle>
-
-            <!-- 白底圓背景 -->
-            <circle cx="60" cy="60" r="36" fill="white" opacity="0">
-                <animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="0.35s" fill="freeze"/>
-            </circle>
-
-            <!-- 綠色勾勾 -->
-            <path d="M40 60 L55 75 L85 45" stroke="#19c37d" stroke-width="8"
-                stroke-linecap="round" stroke-linejoin="round"
-                fill="none" stroke-dasharray="80" stroke-dashoffset="80">
-                <animate attributeName="stroke-dashoffset" from="80" to="0" dur="0.35s" begin="0.45s" fill="freeze"/>
-            </path>
-        </svg>
-
-        <h3>Payment completed</h3>
-        <p id="successText">Recharged 0 Coins</p>
-
-        <button id="successClose" class="btn">Go Back</button>
-    </div>
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
