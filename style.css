@@ -1,27 +1,43 @@
-/* Coins grid 2-column layout */
+/* 手機版：一行一個卡片（TikTok 官方風格） */
 #coinsGrid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 兩欄 */
-    gap: 15px; /* 卡片間距 */
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 12px;
 }
 
-/* 卡片縮小 & 優化排版 */
+/* TikTok 官方卡片樣式（窄版、直式） */
 .card {
-    background: white;
-    border-radius: 18px;
-    padding: 20px 10px;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px 16px;
     text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    border: 1px solid #eee;
     transition: 0.2s;
 }
 
 .card:hover {
-    transform: scale(1.03);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    transform: scale(1.02);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.10);
 }
 
+/* Coin icon 調整成官方大小 */
 .card img.icon {
-    width: 55px;
-    height: 55px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 8px;
+}
+
+/* 文字比例調整成 TikTok 規格 */
+.card .amount {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.card .usd {
+    font-size: 15px;
+    color: #777;
 }
