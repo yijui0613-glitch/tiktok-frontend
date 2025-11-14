@@ -111,11 +111,7 @@ confirmPay.addEventListener("click", () => {
 });
 
 goBack.addEventListener("click", () => {
-    successModal.classList.remove("active");
-
-    // 清空 custom coins 欄位
-    document.getElementById("customInput").value = "";
-    updateCustomCoins(0);
+    location.reload();
 });
 /* ----------------------------- */
 /*     Payment Method Active     */
@@ -129,5 +125,6 @@ methods.forEach(m => {
         m.classList.add("active");
     });
 });
+
 
 
