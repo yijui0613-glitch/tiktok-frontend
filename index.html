@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>TikTok Coins — Demo</title>
+<link rel="manifest" href="manifest.json">
+<style>
+:root{--accent:#ff0050;--muted:#6b6b6b;--bg:#ffffff}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial;background:var(--bg);color:#111}
+.container{max-width:420px;margin:0 auto;padding:16px}
+.header{display:flex;align-items:center;gap:12px;margin-top:8px}
+.logo{width:44px;height:44px;border-radius:10px;object-fit:cover}
+.brand{font-weight:800;font-size:17px}
+.h1{font-size:20px;margin:12px 0 14px;font-weight:800}
+.input-row{display:flex;gap:8px;margin-bottom:12px}
+.input-row input{flex:1;padding:12px;border-radius:12px;border:1px solid #eee}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:12px}
+.card{background:#fff;padding:12px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);display:flex;gap:12px;align-items:center;cursor:pointer}
+.coin-img{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:#fff}
+.amount{font-weight:800;font-size:16px}
+.usd{color:var(--muted);font-size:13px;margin-top:6px}
+.custom-row{display:flex;gap:8px;align-items:center;margin-bottom:14px}
+.custom-row input{flex:1;padding:12px;border-radius:12px;border:1px solid #eee}
+.calc-box{min-width:130px;padding:12px;border-radius:12px;background:#fff;border:1px solid #eee;text-align:center}
+.paybar{display:flex;gap:10px;align-items:center;margin-bottom:16px}
+.summary{flex:1;padding:12px;border-radius:12px;background:#fff;border:1px solid #eee;font-weight:700}
+.pay-btn{background:var(--accent);color:#fff;padding:12px 16px;border-radius:12px;border:none;font-weight:800;cursor:pointer}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.55);display:none;align-items:center;justify-content:center;z-index:4000}
+.modal{width:92%;max-width:380px;background:#fff;border-radius:16px;padding:18px;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,0.25)}
+.methods{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:12px}
+.method{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;border:1.5px solid #eee;cursor:pointer}
+.method.selected{border-color:var(--accent);background:#fff6f8;color:var(--accent)}
+.loader-ring{width:80px;height:80px;border-radius:50%;position:relative;margin:12px auto}
+.loader-ring:before{content:'';position:absolute;inset:0;border-radius:50%;border:10px solid rgba(0,0,0,0.06)}
+.loader-ring:after{content:'';position:absolute;inset:8px;border-radius:50%;border:8px solid transparent;border-top-color:var(--accent);animation:spin 1s linear infinite}
+@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.success-img{width:120px;height:120px;border-radius:999px;display:block;margin:6px auto}
+.success-text{font-weight:800;font-size:18px;margin-top:8px}
+.small{font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <img class="logo" src="images/logo.png" alt="logo">
+    <div>
+      <div class="brand">TikTok</div>
+      <div class="small">Purchase TikTok Coins</div>
+    </div>
+  </div>
+
+  <div class="h1">Purchase TikTok Coins</div>
+
+  <div class="input-row">
+    <input id="tiktokId" placeholder="Enter TikTok ID (e.g. username123)">
+    <button id="searchBtn">Search</button>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="custom-row">
+    <input id="customCoins" placeholder="Enter coins (e.g. 1000)">
+    <div class="calc-box" id="calcBox">0 Coins<br><small class="small" id="usdBox">US$0.00</small></div>
+  </div>
+
+  <div class="paybar">
+    <div class="summary" id="summaryBox">Selected: 0 Coins<br><small class="small" id="summaryUsd">US$0.00</small></div>
+    <button class="pay-btn" id="payBtn">Pay</button>
+  </div>
+</div>
+
+<div id="overlay" class="overlay" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true">
+    <div id="stepChoose">
+      <h3>Choose payment method</h3>
+      <div class="methods">
+        <div class="method" data-name="apple" onclick="pickMethod(this)"><img src="images/applepay.png" alt="apple" style="height:22px">Apple Pay</div>
+        <div class="method" data-name="visa" onclick="pickMethod(this)"><img src="images/visa.png" alt="visa" style="height:22px">Visa</div>
+        <div class="method" data-name="paypal" onclick="pickMethod(this)"><img src="images/paypal.png" alt="paypal" style="height:22px">PayPal</div>
+        <div class="method" data-name="mc" onclick="pickMethod(this)"><img src="images/mastercard.png" alt="mc" style="height:22px">MasterCard</div>
+      </div>
+      <button class="pay-btn" id="modalPay">Pay</button>
+    </div>
+
+    <div id="stepProcessing" style="display:none">
+      <div class="loader-ring" role="img" aria-label="loading"></div>
+      <div class="small">Processing payment...</div>
+    </div>
+
+    <div id="stepSuccess" style="display:none">
+      <img src="images/success.png" class="success-img" alt="success">
+      <div class="success-text">Payment completed</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const RATE = 0.014142857;
+const options = [
+  {coins:30, usd:0.42}, {coins:350, usd:4.95}, {coins:700, usd:9.90},
+  {coins:7000, usd:99.00}, {coins:17500, usd:247.50}, {coins:'custom', usd:0}
+];
+
+const grid = document.getElementById('grid');
+options.forEach(function(opt){
+  var card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = '<div class="coin-img"><img src="images/coin.png" width="28" height="28"></div>' +
+    '<div style="flex:1"><div class="amount">'+opt.coins.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+'</div>' +
+    '<div class="usd">'+(opt.usd>0?("US$"+opt.usd.toFixed(2)):"Custom")+'</div></div>';
+  card.addEventListener('click', function(){
+    document.querySelectorAll('.card').forEach(function(c){c.classList.remove('active');});
+    card.classList.add('active');
+    if(opt.coins==='custom'){ document.getElementById('customCoins').value=''; document.getElementById('customCoins').focus(); updateCalc(0); }
+    else{ document.getElementById('customCoins').value = opt.coins; updateCalc(opt.coins); }
+  });
+  grid.appendChild(card);
+});
+
+function formatUSD(v){ return 'US$' + v.toFixed(2); }
+function updateCalc(coins){
+  coins = Number(coins) || 0;
+  const usd = coins * RATE;
+  document.getElementById('calcBox').innerHTML = coins.toLocaleString() + ' Coins<br><small class="small" id="usdBox">'+formatUSD(usd)+'</small>';
+  document.getElementById('summaryBox').innerHTML = 'Selected: ' + coins.toLocaleString() + ' Coins<br><small class="small" id="summaryUsd">'+formatUSD(usd)+'</small>';
+}
+
+document.getElementById('customCoins').addEventListener('input', function(e){ updateCalc(e.target.value); });
+updateCalc(0);
+
+var chosenMethod = null;
+function pickMethod(el){ document.querySelectorAll('.method').forEach(function(m){m.classList.remove('selected');}); el.classList.add('selected'); chosenMethod = el.getAttribute('data-name'); }
+document.getElementById('payBtn').addEventListener('click', function(){ var selText = document.getElementById('summaryBox').innerText || ''; if(/0 Coins/.test(selText)){ alert('Please choose a coin amount or enter custom coins'); return; } document.getElementById('overlay').style.display='flex'; document.getElementById('stepChoose').style.display='block'; document.getElementById('stepProcessing').style.display='none'; document.getElementById('stepSuccess').style.display='none'; });
+document.getElementById('modalPay').addEventListener('click', function(){ if(!chosenMethod){ alert('Please select a payment method'); return; } document.getElementById('stepChoose').style.display='none'; document.getElementById('stepProcessing').style.display='block'; setTimeout(function(){ document.getElementById('stepProcessing').style.display='none'; document.getElementById('stepSuccess').style.display='block'; setTimeout(function(){ document.getElementById('overlay').style.display='none'; chosenMethod=null; document.querySelectorAll('.method').forEach(function(m){m.classList.remove('selected');}); },1800); },2200); });
+</script>
+</body>
+</html>
