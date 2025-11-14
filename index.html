@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TikTok Coins — Preview</title>
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="header">
+    <img src="images/logo.png" alt="logo" class="logo">
+    <div class="brand">
+      <div class="brand-title">TikTok</div>
+      <div class="brand-sub">Purchase TikTok Coins</div>
+    </div>
+  </header>
+
+  <main>
+    <h1>Purchase TikTok Coins</h1>
+
+    <div class="search">
+      <input id="userId" placeholder="Enter TikTok ID (e.g. username123)" />
+      <button id="searchBtn">Search</button>
+    </div>
+
+    <section class="coins-grid" id="coinsGrid"></section>
+
+    <div class="custom-row">
+      <input id="customCoins" placeholder="Enter coins (e.g. 1000)" />
+      <div class="summary">
+        <div id="selectedCount">0 Coins</div>
+        <div id="selectedAmount">US$0.00</div>
+      </div>
+    </div>
+
+    <div class="pay-row">
+      <button id="payBtn" class="pay-btn">Pay</button>
+    </div>
+  </main>
+</div>
+
+<div class="modal-overlay" id="overlay" hidden>
+  <div class="modal">
+    <h2>Choose Payment Method</h2>
+    <div class="pay-options">
+      <button class="pay-option" data-method="applepay"><img src="images/pay_applepay.png">Apple Pay</button>
+      <button class="pay-option" data-method="visa"><img src="images/pay_visa.png">Visa</button>
+      <button class="pay-option" data-method="paypal"><img src="images/pay_paypal.png">PayPal</button>
+      <button class="pay-option" data-method="mastercard"><img src="images/pay_mastercard.png">MasterCard</button>
+    </div>
+    <div class="modal-actions">
+      <button id="startPay" class="primary">Start Payment</button>
+      <button id="closeModal">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="loading-overlay" id="loading" hidden>
+  <div class="loader">
+    <div class="spinner"></div>
+    <div class="loader-text">Processing payment…</div>
+  </div>
+</div>
+
+<div class="success-overlay" id="success" hidden>
+  <div class="success-box">
+    <img src="images/check_success.png" alt="success" class="success-img">
+    <div class="success-text">Payment completed</div>
+    <button id="goBack">Go Back</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
