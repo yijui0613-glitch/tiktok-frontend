@@ -19,7 +19,11 @@ coinsData.forEach(item => {
         <div class="amount">${item.amount}</div>
         <div class="usd">US$${item.usd}</div>
     `;
-    div.addEventListener("click", () => selectItem(item));
+    div.addEventListener("click", () => {
+    document.querySelectorAll(".card").forEach(c => c.classList.remove("selected"));
+    div.classList.add("selected");
+    selectItem(item);
+});
     grid.appendChild(div);
 });
 
@@ -121,3 +125,4 @@ methods.forEach(m => {
         m.classList.add("active");
     });
 });
+
