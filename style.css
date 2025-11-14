@@ -1,52 +1,261 @@
-/* === TikTok 官方風格：每排兩個卡片 === */
-#coinsGrid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    padding: 10px 0;
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-/* 卡片樣式（官方版） */
-.card {
+/* Page */
+body {
     background: #ffffff;
+    padding-bottom: 60px;
+}
+
+/* ---------------------- */
+/* Header (Logo + Text)   */
+/* ---------------------- */
+.topbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 14px 10px;
+}
+
+.logo {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    object-fit: contain;
+}
+
+.brand-text .title {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.brand-text .subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-top: 2px;
+}
+
+/* ---------------------- */
+/* Search Bar             */
+/* ---------------------- */
+.search-row {
+    display: flex;
+    gap: 10px;
+    padding: 0 14px;
+    margin-top: 10px;
+}
+
+#tiktokId {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 16px;
+}
+
+#searchBtn {
+    padding: 0 18px;
+    background: #f1f1f1;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 16px;
+}
+
+/* ---------------------- */
+/* Section Title          */
+/* ---------------------- */
+.container h1 {
+    font-size: 26px;
+    font-weight: 700;
+    padding: 20px 14px 16px;
+}
+
+/* ---------------------- */
+/* Coins Grid (Mobile 2 Columns) */
+/* ---------------------- */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    padding: 0 14px;
+}
+
+/* Coin Card */
+.card {
+    background: #fafafa;
     border-radius: 16px;
     padding: 18px 10px;
     text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border: 1px solid #eee;
     transition: 0.2s;
 }
 
-/* 圖示縮小 */
-.card img.icon {
-    height: 42px;
-    width: 42px;
+.card:hover {
+    background: #f5f5f5;
+}
+
+.card .icon {
+    width: 48px;
+    height: 48px;
     margin-bottom: 8px;
 }
 
-/* amount 金額（粗體） */
-.card .amount {
+.amount {
     font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 4px;
+    font-weight: 700;
 }
 
-/* 美金（淺色） */
-.card .usd {
-    font-size: 15px;
+.usd {
+    font-size: 14px;
     color: #666;
+    margin-top: 4px;
 }
 
-/* 手機 RWD：小螢幕兩欄保持一致 */
-@media (max-width: 480px) {
-    #coinsGrid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 14px;
-    }
-    .card {
-        padding: 16px 10px;
-    }
-    .card img.icon {
-        height: 40px;
-        width: 40px;
-    }
+/* ---------------------- */
+/* Custom Input Row       */
+/* ---------------------- */
+.custom-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 0 14px;
+}
+
+#customCoins {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+}
+
+.custom-summary {
+    width: 120px;
+    text-align: right;
+    font-size: 14px;
+    line-height: 1.3;
+}
+
+/* ---------------------- */
+/* Selected Summary       */
+/* ---------------------- */
+.summary-row {
+    margin-top: 20px;
+    padding: 0 14px;
+}
+
+.selected-info {
+    background: #fafafa;
+    border-radius: 16px;
+    padding: 16px;
+    border: 1px solid #eee;
+}
+
+.summary-row .btn {
+    width: 100%;
+    margin-top: 16px;
+    padding: 14px;
+    font-size: 18px;
+    border: none;
+    border-radius: 12px;
+    background: #ff0050;
+    color: white;
+}
+
+.btn:disabled {
+    background: #ff7aa6;
+}
+
+/* ---------------------- */
+/* Payment Modal Layout   */
+/* ---------------------- */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.35);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 14px;
+}
+
+.modal-box {
+    background: white;
+    width: 100%;
+    max-width: 420px;
+    padding: 22px;
+    border-radius: 18px;
+}
+
+/* Payment Buttons */
+.method-row {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 18px;
+}
+
+.method {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    font-size: 16px;
+}
+
+/* Modal Actions */
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+.do-pay {
+    background: #ff0050;
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    border-radius: 12px;
+    font-size: 16px;
+}
+
+.btn {
+    border: 1px solid #ccc;
+    padding: 14px 20px;
+    border-radius: 12px;
+    font-size: 16px;
+}
+
+/* ---------------------- */
+/* Success Modal          */
+/* ---------------------- */
+#successModal .modal-box {
+    text-align: center;
+}
+
+#checkmark {
+    margin: 0 auto 16px;
+}
+
+#successText {
+    font-size: 20px;
+    margin: 12px 0;
+}
+
+#coins {
+    font-size: 18px;
+    font-weight: bold;
+    color: #444;
 }
