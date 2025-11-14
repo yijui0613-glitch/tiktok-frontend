@@ -1,14 +1,21 @@
+// =====================
+//  COINS DATA
+// =====================
 const coinsData = [
     { amount: 30, usd: 0.42 },
     { amount: 350, usd: 4.95 },
-    { amount: 700, usd: 9.90 },
-    { amount: 7000, usd: 99.00 },
-    { amount: 17500, usd: 247.50 },
+    { amount: 700, usd: 9.9 },
+    { amount: 7000, usd: 99 },
+    { amount: 17500, usd: 247.5 },
     { amount: "Custom", usd: "Custom" }
 ];
 
 const grid = document.getElementById("coinsGrid");
+let selected = null;
 
+// =====================
+//  RENDER CARDS
+// =====================
 coinsData.forEach(item => {
     const div = document.createElement("div");
     div.className = "card";
@@ -21,66 +28,82 @@ coinsData.forEach(item => {
     grid.appendChild(div);
 });
 
-let selected = null;
-
-// 選擇固定金額
+// =====================
+//  SELECT ITEM
+// =====================
 function selectItem(item) {
     selected = item;
-    document.getElementById("customCoins").value = ""; // 清空 Custom 輸入
-    updateDisplay(item.amount, item.usd);
-}
-
-// 更新畫面顯示（Selected…）
-function updateDisplay(coins, usd) {
-    document.getElementById("selectedText").innerText = `Selected: ${coins} Coins`;
-    document.getElementById("selectedUSD").innerText = `US$${usd}`;
+    document.getElementById("selectedText").innerText = `Selected: ${item.amount} Coins`;
+    document.getElementById("selectedUSD").innerText = `US$${item.usd}`;
     document.getElementById("payBtn").disabled = false;
 }
 
-// 自動計算 custom
-document.getElementById("customCoins").addEventListener("input", function () {
-    let val = parseInt(this.value);
+// =====================
+//  CUSTOM INPUT
+// =====================
+const customInput = document.getElementById("customCoins");
+customInput.addEventListener("input", () => {
+    const val = Number(customInput.value);
 
     if (!val || val <= 0) {
-        selected = null;
-        document.getElementById("selectedText").innerText = "Selected: 0 Coins";
-        document.getElementById("selectedUSD").innerText = "US$0.00";
-        document.getElementById("payBtn").disabled = true;
+        document.getElementById("customCount").innerText = "0 Coins";
+        document.getElementById("customUSD").innerText = "US$0.00";
         return;
     }
 
-    // TikTok 官方比例：700 Coins = 9.90 USD
-    const usd = (val * (9.90 / 700)).toFixed(2);
+    const usd = (val * 0.01417).toFixed(2); // TikTok 美區匯率
 
     selected = { amount: val, usd: usd };
 
-    updateDisplay(val, usd);
+    document.getElementById("customCount").innerText = `${val} Coins`;
+    document.getElementById("customUSD").innerText = `US$${usd}`;
+    document.getElementById("selectedText").innerText = `Selected: ${val} Coins`;
+    document.getElementById("selectedUSD").innerText = `US$${usd}`;
+    document.getElementById("payBtn").disabled = false;
 });
 
-// Pay 按鈕顯示支付方式
-document.getElementById("payBtn").addEventListener("click", () => {
+// =====================
+//  MODALS
+// =====================
+const payBtn = document.getElementById("payBtn");
+const payMethods = document.getElementById("payMethods");
+const processing = document.getElementById("processing");
+const success = document.getElementById("success");
+
+payBtn.addEventListener("click", () => {
     if (!selected) return;
-    document.getElementById("payMethods").classList.remove("hidden");
+    payMethods.classList.remove("hidden");
 });
 
-// 關閉支付方式
-document.getElementById("closeMethodsBtn").addEventListener("click", () => {
-    document.getElementById("payMethods").classList.add("hidden");
+// =====================
+// CLOSE PAYMENT METHOD
+// =====================
+document.getElementById("closeMethods").addEventListener("click", () => {
+    payMethods.classList.add("hidden");
 });
 
-// 支付流程
+// =====================
+// CONFIRM PAYMENT
+// =====================
 document.getElementById("confirmPay").addEventListener("click", () => {
-    document.getElementById("payMethods").classList.add("hidden");
-    document.getElementById("processing").classList.remove("hidden");
 
+    payMethods.classList.add("hidden");
+    processing.classList.remove("hidden");
+
+    // 模擬處理中 1.5 秒
     setTimeout(() => {
-        document.getElementById("processing").classList.add("hidden");
-        document.getElementById("success").classList.remove("hidden");
-        document.getElementById("coinsNum").innerText = selected.amount;
-    }, 2000);
+        processing.classList.add("hidden");
+
+        document.getElementById("successText").innerText =
+            `Recharged ${selected.amount} Coins`;
+
+        success.classList.remove("hidden");
+    }, 1500);
 });
 
-// 完成後返回
+// =====================
+// SUCCESS CLOSE
+// =====================
 document.getElementById("successClose").addEventListener("click", () => {
-    document.getElementById("success").classList.add("hidden");
+    success.classList.add("hidden");
 });
