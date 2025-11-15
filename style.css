@@ -285,4 +285,9 @@ body {
     font-size: 17px;      /* 文字放大一點 */
     border-radius: 14px;  /* 保持圓滑 */
 }
+/* Make VISA icon slightly smaller */
+.payicon.visa-icon {
+    width: 38px;    /* 比剛剛的小一點點 */
+    height: auto;
+}
 
