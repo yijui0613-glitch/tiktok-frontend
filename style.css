@@ -279,4 +279,10 @@ body {
 #customCoins {
     font-size: 16px;   /* ← 不會放大 */
 }
+/* Make Go Back button slightly bigger */
+#goBack {
+    padding: 12px 26px;   /* 原本比較小，這裡稍微放大 */
+    font-size: 17px;      /* 文字放大一點 */
+    border-radius: 14px;  /* 保持圓滑 */
+}
 
