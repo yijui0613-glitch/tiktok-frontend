@@ -301,4 +301,8 @@ body {
     border-radius: 14px;
     display: block;
 }
+/* Move Go Back button slightly lower */
+#goBack {
+    margin-top: 12px;   /* 往下 12px，你想再多我也可以微調 */
+}
 
