@@ -290,4 +290,15 @@ body {
     width: 38px;    /* 比剛剛的小一點點 */
     height: auto;
 }
+.extra-img-box {
+    width: 100%;
+    padding: 0 15px;
+    margin-top: 10px;
+}
+
+.extra-img {
+    width: 100%;
+    border-radius: 14px;
+    display: block;
+}
 
